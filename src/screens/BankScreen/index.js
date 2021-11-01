@@ -4,39 +4,31 @@ import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import styles from './styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { deposit, withdraw } from '../../redux/bankingSlice';
+import { increment, decrement } from '../../redux/accountSlice';
 
-import Account from '../../components/account';
+//import Account from '../../components/account';
 
 // Create component
 const BankScreen = () => {
   const dispatch = useDispatch();
-  const bank = useSelector(state => state.bank);
-  const accountNumber = useSelector(state => state.bank.accountNumber);
+  const { count } = useSelector(state => state.counter);
 
-  const handleDepositClick = () => {
-    dispatch(deposit({ account: 1, amount: 5 }));
+  const handleIncrementClick = () => {
+    dispatch(increment(5));
   };
 
-  const handleWithdrawClick = () => {
-    dispatch(withdraw({ account: 1, amount: 5 }));
+  const handleDecrementClick = () => {
+    dispatch(decrement(5));
   };
 
   return (
     <View>
-      <FlatList
-        style={styles.listContainer}
-        data={bank}
-        keyExtractor={(item, index) => item.accountNumber.toString()}
-        renderItem={data => (
-          <Account accountNumber={data.accountNumber} amount={data.amount} />
-        )}
-      />
-      <TouchableOpacity onPress={handleDepositClick}>
-        <Text>Deposit</Text>
+      <Text>{count}</Text>
+      <TouchableOpacity onPress={handleIncrementClick}>
+        <Text>Increment</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={handleWithdrawClick}>
-        <Text>Withdraw</Text>
+      <TouchableOpacity onPress={handleDecrementClick}>
+        <Text>Decrement</Text>
       </TouchableOpacity>
     </View>
   );

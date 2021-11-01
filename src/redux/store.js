@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import bankingReducer from './bankingSlice';
+import counterReducer from './accountSlice';
 
 export default configureStore({
   reducer: {
-    bank: bankingReducer,
+    counter: counterReducer,
   },
 });
